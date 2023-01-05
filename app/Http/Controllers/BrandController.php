@@ -3,12 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBrandRequest;
-use App\Http\Requests\UpdateBrandRequest;
 use App\Http\Resources\BrandResource;
 use App\Models\Brand;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 
 class BrandController extends Controller
@@ -20,9 +16,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        //
-        $brand = Brand::paginate(10);
-        return BrandResource::collection($brand->loadMissing(['outlets']));
+        return BrandResource::collection(Brand::paginate(10));
     }
 
     /**
@@ -63,7 +57,7 @@ class BrandController extends Controller
      */
     public function show($id)
     {
-        $brand = Brand::with('outlets')->findOrFail($id);
+        $brand = Brand::with(['outlets','products'])->findOrFail($id);
         return new BrandResource($brand);
     }
 
@@ -133,7 +127,7 @@ class BrandController extends Controller
         Storage::delete('logo/'.$brand->logo);
         Storage::delete('banner/'.$brand->banner);
         $brand->delete();
-        return response('Berhasil di hapus',204);
+        return response()->noContent();
     }
 
     function generateRandomString($length = 10) {

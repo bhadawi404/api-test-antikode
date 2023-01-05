@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOutletRequest;
 use App\Models\Outlet;
-use Illuminate\Http\Request;
 use App\Http\Resources\OutletResource;
+use App\Http\Resources\OutletDetailResource;
 use Illuminate\Support\Facades\Storage;
 
 class OutletController extends Controller
@@ -48,9 +48,10 @@ class OutletController extends Controller
      * @param  \App\Models\Outlet  $outlet
      * @return \Illuminate\Http\Response
      */
-    public function show(Outlet $outlet)
+    public function show($id)
     {
-        return new OutletResource($outlet);
+        $outlet = Outlet::with('brand:id,name,logo,banner')->findOrFail($id);
+        return new OutletDetailResource($outlet);
     }
 
     /**

@@ -11,8 +11,12 @@ class Product extends Model
     use HasFactory;
     protected $fillable = [
         'name',
+        'picture',
         'price',
         'brand_id'
+    ];
+    protected $casts = [
+        'picture' => 'array'
     ];
     /**
      * Get the brand that owns the Outlet

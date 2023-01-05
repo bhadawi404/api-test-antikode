@@ -16,12 +16,21 @@ class Brand extends Model
         'banner',
     ];
     /**
-     * Get all of the comments for the Brand
+     * Get all of the outlets for the Brand
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function outlets(): HasMany
     {
         return $this->hasMany(Outlet::class, 'brand_id', 'id');
+    }
+    /**
+     * Get all of the products for the Brand
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class, 'brand_id', 'id');
     }
 }

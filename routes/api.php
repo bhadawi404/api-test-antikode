@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\OutletController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,5 +31,5 @@ Route::middleware('auth:sanctum')->group(function(){
 // request Brand
 Route::apiResource('/brand', BrandController::class);
 Route::apiResource('/outlet', OutletController::class);
-Route::apiResource('/product', OutletController::class);
+Route::apiResource('/product', ProductController::class);
 
