@@ -27,6 +27,7 @@ class StoreOutletRequest extends FormRequest
             'name'=>'unique:outlets|required|max:100',
             'latitude' => 'required|max:100',
             'longitude' => 'required|max:100',
+            'brand_id'=>'required|exists:brands,id'
         ];
     }
 }

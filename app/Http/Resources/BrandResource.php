@@ -19,6 +19,10 @@ class BrandResource extends JsonResource
             'brandName' => $this->name,
             'brandLogo'=>$this->logo,
             'brandBanner'=>$this->banner,
+            'outlets'=>$this->whenLoaded('outlets', function(){
+                return $this->outlets;
+            })
+
 
         ];
     }

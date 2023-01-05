@@ -21,7 +21,8 @@ class BrandController extends Controller
     public function index()
     {
         //
-        return BrandResource::collection(Brand::paginate(10));
+        $brand = Brand::paginate(10);
+        return BrandResource::collection($brand->loadMissing(['outlets']));
     }
 
     /**
@@ -60,9 +61,9 @@ class BrandController extends Controller
      * @param  \App\Models\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function show(Brand $brand)
+    public function show($id)
     {
-
+        $brand = Brand::with('outlets')->findOrFail($id);
         return new BrandResource($brand);
     }
 
@@ -132,7 +133,7 @@ class BrandController extends Controller
         Storage::delete('logo/'.$brand->logo);
         Storage::delete('banner/'.$brand->banner);
         $brand->delete();
-        return response()->noContent();
+        return response('Berhasil di hapus',204);
     }
 
     function generateRandomString($length = 10) {

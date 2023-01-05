@@ -18,9 +18,7 @@ return new class extends Migration
             $table->string("name");
             $table->string("logo")->nullable();
             $table->string("banner")->nullable();
-            $table->unsignedBigInteger("create_uid");
             $table->timestamps();
-            $table->foreign('create_uid')->references('id')->on('users');
         });
     }
 
